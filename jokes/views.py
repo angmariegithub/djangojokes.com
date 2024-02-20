@@ -18,8 +18,6 @@ class JokeDetailView(DetailView):
 class JokeListView(ListView):
     model = Joke
 
-
-
 class JokeUpdateView(UpdateView):
     model = Joke
     form_class = JokeForm
