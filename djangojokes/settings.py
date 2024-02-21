@@ -135,11 +135,19 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # AUTHENTICATION SETTINGS
 AUTH_USER_MODEL = 'users.CustomUser'
-
-# AUTHENTICATION SETTINGS
-AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_URL = 'account_login'
 LOGIN_REDIRECT_URL = 'pages:homepage'
+
+## django-allauth settings
+ACCOUNT_AUTHENTICATION_METHOD = 'username' # Default: 'username'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3 # Default: 3
+ACCOUNT_EMAIL_REQUIRED = False # Default: False
+ACCOUNT_EMAIL_VERIFICATION = 'optional' # Default: 'optional'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5 # Default: 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300 # Default 300
+ACCOUNT_LOGOUT_REDIRECT_URL ='account_login' # Default: '/'
+ACCOUNT_USERNAME_REQUIRED = True # Default: True
+#ACCOUNT_SIGNUP_FORM_CLASS = 'users.forms.SignupForm'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
