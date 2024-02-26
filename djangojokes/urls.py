@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+import private_storage.urls
 from django.urls import path, include
 
 urlpatterns = [
@@ -11,6 +12,9 @@ urlpatterns = [
     # User Management
     path('account/', include('users.urls')),
     path('account/', include('allauth.urls')),
+
+    # Private media
+    path('media/private/', include(private_storage.urls)),
 
     #Local Apps
     path('jobs/', include('jobs.urls')),
