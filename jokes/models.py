@@ -8,10 +8,11 @@ class Joke(models.Model):
     question = models.TextField(max_length=200)
     answer = models.TextField(max_length=100)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.PROTECT
+        settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
+        related_name='jokes'
     )
-    category = models.ForeignKey('Category', on_delete=models.PROTECT)
-    tags = models.ManyToManyField('Tag', blank=True)
+    category = models.ForeignKey('Category', on_delete=models.PROTECT, related_name='jokes')
+    tags = models.ManyToManyField('Tag', blank=True, related_name='jokes')
     slug = models.SlugField(
         max_length=50, unique=True, null=False, editable=False
     )
