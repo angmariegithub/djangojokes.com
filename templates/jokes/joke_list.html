@@ -7,9 +7,9 @@
     <h2>Jokes</h2>
   </div>
   <div class="col-12 col-md-8 col-lg-6">
-    <form class="my-2 mx-auto" style="max-width: 30rem;">
+    <form class="form-inline my-2 mx-auto" style="max-width: 10rem;">
       <label class="my-1 me-2" for="order">Order By:</label>
-      <select class="form-control me-sm-2" name="order" id="order">
+      <select class="form-control mr-sm-2" name="order" id="order">
         {% for field in order_fields %}
         <option value="{{ field }}" {% if order == field %}selected{% endif %}>{{ field|title }}</option>
         {% endfor %}
@@ -66,11 +66,12 @@
           <a href="{{ joke.get_absolute_url }}">{{ joke.question }}</a>
         </td>
         <td>
-          {{ joke.category.category }}<br>
+          <a href="{% url 'jokes:category' joke.category.slug %}?order={{ order }}&direction={{ direction }}">
+            {{ joke.category.category }}
+          </a><br>
           {% for tag in joke.tags.all %}
-          <span class="badge rounded-pill bg-secondary">
-            {{ tag.tag }}
-          </span>
+          <a href="{% url 'jokes:tag' tag.slug %}?order={{ order }}&direction={{ direction }}"
+            class="badge rounded-pill bg-secondary">{{ tag.tag }}</a>
           {% endfor %}
         </td>
         <td>
@@ -83,7 +84,9 @@
           </a>
           {% else %}
           <small>
-            by {{ joke.user.username }}
+            by <a href="{% url 'jokes:creator' joke.user.username %}?order={{ order }}&direction={{ direction }}">
+              {{ joke.user.username }}
+            </a>
           </small>
           {% endif %}
         </td>
