@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.db.models import Avg
 from django.urls import reverse
 
 from common.utils.text import unique_slug
@@ -18,6 +19,16 @@ class Joke(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    @property
+    def rating(self):
+        if self.num_votes == 0: # No jokes, so rating is 0
+            return 0
+
+        r = JokeVote.objects.filter(joke=self).aggregate(average=Avg('vote'))
+
+        # Return the rounded rating.
+        return round(5 + (r['average'] * 5), 2)
 
     @property
     def num_votes(self):
